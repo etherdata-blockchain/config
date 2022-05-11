@@ -1,0 +1,6 @@
+encryptionsalt: v1:BGKsBtjeV2s=:v1:nIHWGlDr0Y19jjZW:PnvnfAz4j94eJ/jUlm4BsJT+gXFySA==
+config:
+  digitalocean:token:
+    secure: v1:zXovkIwAm+KH8ftz:DW73GkxyT4Q8Sdv8I/NYtmDY/YxigWA3PZznWURSjZuv30wLabksI0+Cb0UziKjtpIa4O6SUNlBqSeMz9+jClmdbNV594Ncqo1qiiWW2W7ZWD8i8MN6c
+  pulum:password:
+    secure: v1:iPCcAAe3IHvzGDxK:LxKlgc901YT2Xdn2eY0l9IATcKVcgavzer3RYUVErPVmVshoxXM=
