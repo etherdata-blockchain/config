@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@pulumi/aws': ^5.0.0
   '@pulumi/awsx': ^0.40.0
+  '@pulumi/cloudflare': ^4.6.0
   '@pulumi/digitalocean': ^4.12.0
   '@pulumi/pulumi': ^3.0.0
   '@types/node': ^14
@@ -10,6 +11,7 @@ specifiers:
 dependencies:
   '@pulumi/aws': 5.4.0
   '@pulumi/awsx': 0.40.0_ybwgltn6w6jbqitd4ueqjs6lqa
+  '@pulumi/cloudflare': 4.6.0
   '@pulumi/digitalocean': 4.12.0
   '@pulumi/pulumi': 3.32.1
 
@@ -96,6 +98,13 @@ packages:
       '@pulumi/pulumi': 3.32.1
       '@types/aws-lambda': 8.10.97
       mime: 2.6.0
+    dev: false
+
+  /@pulumi/cloudflare/4.6.0:
+    resolution: {integrity: sha512-UvcQTSz38m7qBwKcaWzrPYGClcc+x5vSTqOeJPqFJbE785InT8yCN9DlzC6mOrKikOR7HlkJ7jthBwKbDLk4mw==}
+    requiresBuild: true
+    dependencies:
+      '@pulumi/pulumi': 3.32.1
     dev: false
 
   /@pulumi/digitalocean/4.12.0:

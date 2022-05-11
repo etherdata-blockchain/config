@@ -1,6 +1,10 @@
 encryptionsalt: v1:BGKsBtjeV2s=:v1:nIHWGlDr0Y19jjZW:PnvnfAz4j94eJ/jUlm4BsJT+gXFySA==
 config:
+  cloudflare:apiToken:
+    secure: v1:l2gc9uGOYsk0k7lg:b9cDovkrlNmXucXJNnIerwU5Di+4vifrVEC0T2pDaN8GrDBOYW9UObZBbKqQp4MriA0RG8G8thA=
   digitalocean:token:
     secure: v1:zXovkIwAm+KH8ftz:DW73GkxyT4Q8Sdv8I/NYtmDY/YxigWA3PZznWURSjZuv30wLabksI0+Cb0UziKjtpIa4O6SUNlBqSeMz9+jClmdbNV594Ncqo1qiiWW2W7ZWD8i8MN6c
   pulum:password:
     secure: v1:iPCcAAe3IHvzGDxK:LxKlgc901YT2Xdn2eY0l9IATcKVcgavzer3RYUVErPVmVshoxXM=
+  pulum:zoneId:
+    secure: v1:9MtNYOxbt7mRW46n:AtWXA+PIhIRfiRuT8hcC0dZTcNn1bkp5NB9rgvK/1c9yXJQKP15ZClUP7HbWm08z

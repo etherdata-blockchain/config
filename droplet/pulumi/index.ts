@@ -1,33 +1,48 @@
 import * as digitalocean from "@pulumi/digitalocean";
-import * as pulumi from "@pulumi/pulumi";
+import * as cloudflare from "@pulumi/cloudflare";
+import { publicEndpointScript } from "./scripts";
+import { Config, Secrets, Tags } from "./config";
 
-const config = new pulumi.Config();
-const password = config.require("password");
-
-// userdata
-const script = `#!/bin/bash
-
-apt-get -y update
-apt-get -y install docker-compose
-apt-get -y install docker.io
-export HOSTNAME=$(curl -s http://169.254.169.254/metadata/v1/hostname)
-export PUBLIC_IPV4=$(curl -s http://169.254.169.254/metadata/v1/interfaces/public/0/ipv4/address)
-# Setup admin
-wget -O cli https://github.com/etherdata-blockchain/admin-cli/releases/download/v0.4.0/etd-linux-amd64
-echo etd_node_id=$HOSTNAME > .env
-chmod 777 ./cli
-./cli --template=etdnet --environment=beta --password=${password}
-docker-compose up -d
-`;
-
-for (let i = 1; i < 6; i++) {
-  const dropletName = `public-endpoint-${i}`;
-  new digitalocean.Droplet(dropletName, {
-    name: dropletName,
-    image: "ubuntu-20-04-x64",
-    region: "sgp1",
-    size: "s-1vcpu-2gb",
-    userData: script,
-    tags: ["etd-without-proxy"],
+function makePublicEndpoint() {
+  //Create a public endpoint
+  for (let i = 1; i <= Config.numberOfPublicEndpoints; i++) {
+    const dropletName = `public-endpoint-${i}`;
+    new digitalocean.Droplet(dropletName, {
+      name: dropletName,
+      image: "ubuntu-20-04-x64",
+      region: digitalocean.Region.SGP1,
+      size: "s-1vcpu-2gb",
+      userData: publicEndpointScript,
+      tags: ["etd-without-proxy"],
+    });
+  }
+  // create a loadbalancer for public endpoint
+  const loadBalancer = new digitalocean.LoadBalancer("public-endpoint-lb", {
+    region: digitalocean.Region.SGP1,
+    dropletTag: Tags.publicEndpointWithoutProxy,
+    forwardingRules: [
+      {
+        entryProtocol: "https",
+        entryPort: 443,
+        certificateName: Config.etdChainCertificateName as string,
+        targetProtocol: "http",
+        targetPort: 8547,
+      },
+      {
+        entryProtocol: "tcp",
+        entryPort: 8546,
+        targetProtocol: "tcp",
+        targetPort: 8548,
+      },
+    ],
+  });
+  const record = new cloudflare.Record("public-endpoint-record", {
+    zoneId: Secrets.zoneId,
+    name: "rpc",
+    type: "A",
+    value: loadBalancer.ip,
+    proxied: true,
   });
 }
+
+makePublicEndpoint();
