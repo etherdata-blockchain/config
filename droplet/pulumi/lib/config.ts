@@ -4,7 +4,7 @@ const config = new pulumi.Config();
 
 export enum Config {
   numberOfPublicEndpoints = 5,
-  numberofUnProxydEndpoints = 1,
+  numberofProxyedEndpoints = 1,
   numberOfTestnetEndpoints = 1,
   etdChainCertificateName = "ETDChainAuto",
   debugchainCertificateName = "DebugChainAuto",
