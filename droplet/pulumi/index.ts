@@ -97,5 +97,21 @@ function makePublicProxyEndpoint() {
   });
 }
 
+function makePublicTestnet() {
+  //Create a public endpoint
+  for (let i = 1; i <= Config.numberofProxyedEndpoints; i++) {
+    const dropletName = `testnet-${i}`;
+    new digitalocean.Droplet(dropletName, {
+      name: dropletName,
+      image: "ubuntu-20-04-x64",
+      region: digitalocean.Region.SGP1,
+      size: "s-1vcpu-2gb",
+      userData: publicEndpointScript,
+      tags: [Tags.testnetEndpoint],
+    });
+  }
+}
+
 makePublicEndpoint();
 makePublicProxyEndpoint();
+makePublicTestnet();

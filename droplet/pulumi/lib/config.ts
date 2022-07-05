@@ -3,7 +3,7 @@ import * as pulumi from "@pulumi/pulumi";
 const config = new pulumi.Config();
 
 export enum Config {
-  numberOfPublicEndpoints = 5,
+  numberOfPublicEndpoints = 2,
   numberofProxyedEndpoints = 1,
   numberOfTestnetEndpoints = 1,
   etdChainCertificateName = "ETDChainAuto",
@@ -13,6 +13,7 @@ export enum Config {
 export enum Tags {
   publicEndpointWithoutProxy = "etd-without-proxy",
   publicEndpointWithProxy = "etd-with-proxy",
+  testnetEndpoint = "etd-testnet",
 }
 
 export const Secrets = {
