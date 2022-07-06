@@ -8,5 +8,6 @@ services:
     environment:
       MEILI_MASTER_KEY: ${MEILI_MASTER_KEY}
     container_name: meilisearch
+    command: meilisearch --env="development"
     volumes:
       - ./data:/meili_data
